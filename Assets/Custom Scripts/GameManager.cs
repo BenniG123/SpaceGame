@@ -11,12 +11,20 @@ public class GameManager : MonoBehaviour {
 
 	void OnServerInitialized()
 	{
-		SpawnPlayer((GameObject) spawners_1[0], 1);
+		if(players_1.Count > players_2.Count) {
+			SpawnPlayer((GameObject) spawners_2[Random.Range(0, spawners_2.Count - 1)], 2);
+		} else {
+			SpawnPlayer((GameObject) spawners_1[Random.Range(0, spawners_1.Count - 1)], 1);
+		}
 	}
 
 	void OnConnectedToServer()
 	{
-		SpawnPlayer((GameObject) spawners_2[0], 2);
+		if(players_1.Count > players_2.Count) {
+			SpawnPlayer((GameObject) spawners_2[Random.Range(0, spawners_2.Count - 1)], 2);
+		} else {
+			SpawnPlayer((GameObject) spawners_1[Random.Range(0, spawners_1.Count - 1)], 1);
+		}
 	}
 	
 	private void SpawnPlayer(GameObject s, int team)
@@ -54,14 +62,14 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		foreach (GameObject player in players_1) {
 			if (player == null) {
-				SpawnPlayer((GameObject) spawners_1[0], 1);
 				players_1.Remove(player);
+				SpawnPlayer((GameObject) spawners_1[0], 1);
 			}
 		}
 		foreach (GameObject player in players_2) {
 			if (player == null) {
-				SpawnPlayer((GameObject) spawners_2[0], 2);
 				players_2.Remove(player);
+				SpawnPlayer((GameObject) spawners_2[0], 2);
 			}
 		}
 	

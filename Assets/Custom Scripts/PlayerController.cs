@@ -55,10 +55,10 @@ public class PlayerController : MonoBehaviour {
 				weaponManager.Fire ();
 				fire_1_held = true;
 			}
-			if (Input.GetAxis ("Fire2") != 0 && !fire_2_held) {
-				weaponManager.Fire (secondary:true);
-				fire_2_held = true;
-			}
+//			if (Input.GetAxis ("Fire2") != 0 && !fire_2_held) {
+//				weaponManager.Fire (secondary:true);
+//				fire_2_held = true;
+//			}
 
 			fire_1_held = Input.GetAxis ("Fire1") != 0;
 			fire_2_held = Input.GetAxis ("Fire2") != 0;
