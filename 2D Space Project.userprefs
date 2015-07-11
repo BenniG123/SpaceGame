@@ -4,7 +4,7 @@
     <Files>
       <File FileName="Assets\Custom Scripts\MineBehaviour.cs" Line="56" Column="1" />
       <File FileName="Assets\Custom Scripts\GameManager.cs" Line="19" Column="3" />
-      <File FileName="Assets\Custom Scripts\PlayerController.cs" Line="52" Column="6" />
+      <File FileName="Assets\Custom Scripts\PlayerController.cs" Line="46" Column="74" />
       <File FileName="Assets\Custom Scripts\CameraFollow.cs" Line="1" Column="1" />
       <File FileName="Assets\Custom Scripts\WeaponManager.cs" Line="29" Column="14" />
       <File FileName="Assets\Custom Scripts\WeaponController.cs" Line="1" Column="1" />
