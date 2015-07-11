@@ -1,0 +1,33 @@
+//TODO - Smart Rotations
+
+//	enum Angle {LEFT, RIGHT, UPRIGHT, OTHER};
+//	private Angle angle;
+		
+//		if (Input.GetKey (KeyCode.LeftArrow) && angle != Angle.LEFT) {
+//			angle = Angle.OTHER;
+//			transform.RotateAround (transform.position, Vector3.right, 90f * Time.deltaTime);
+//			
+//			if (this.transform.rotation.x > .4) {
+//				angle = Angle.LEFT;
+//			}
+//			
+//		} else if (Input.GetKey (KeyCode.RightArrow) && angle != Angle.RIGHT) {
+//			transform.RotateAround (this.transform.position, Vector3.right, -90f * Time.deltaTime);
+//			angle = Angle.OTHER;
+//			
+//			if (this.transform.rotation.x < -.4) {
+//				angle = Angle.RIGHT;
+//			}
+//		} else if(angle != Angle.UPRIGHT && !Input.GetKey (KeyCode.LeftArrow) && !Input.GetKey (KeyCode.RightArrow)) {
+//			
+//			if (transform.rotation.x > 0) {
+//				transform.RotateAround (this.transform.position, Vector3.right, -90f * Time.deltaTime);
+//			} else {
+//				transform.RotateAround (transform.position, Vector3.right, 90f * Time.deltaTime);
+//			}
+//			
+//			if (Mathf.Abs (this.transform.rotation.x) < 0.01f) {
+//				
+//				angle = Angle.UPRIGHT;
+//			}
+//		}
