@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour {
 
 	public float turn_rate;
 	public float speed;
+	public float acceleration;
 	public float maxSpeed;
 	public float minSpeed;
 	private WeaponManager weaponManager;
@@ -36,15 +37,14 @@ public class PlayerController : MonoBehaviour {
 				if (Input.GetAxis ("Horizontal") != 0) {
 					transform.RotateAround (transform.position, Vector3.up, turn_rate * Input.GetAxis ("Horizontal") * Time.deltaTime);
 				}
-
 				if (Input.GetAxis ("AccelTrigger") != 0 && speed < maxSpeed) {
-					speed = Mathf.Clamp (speed + 100f * Input.GetAxis ("AccelTrigger") * Time.deltaTime, minSpeed, maxSpeed);
+					speed = Mathf.Clamp (speed + acceleration * Input.GetAxis ("AccelTrigger") * Time.deltaTime, minSpeed, maxSpeed);
 				} else if (Input.GetAxis ("DeccelTrigger") != 0 && speed > minSpeed) {
-					speed = Mathf.Clamp (speed - 100f * Input.GetAxis ("DeccelTrigger") * Time.deltaTime, minSpeed, maxSpeed);
-				} else if (Input.GetAxis ("AccelButton") != 0 && speed < maxSpeed) {
-					speed = Mathf.Clamp (speed + 100f * Input.GetAxis ("AccelButton") * Time.deltaTime, minSpeed, maxSpeed);
+					speed = Mathf.Clamp (speed - acceleration * Input.GetAxis ("DeccelTrigger") * Time.deltaTime, minSpeed, maxSpeed);
+				}  else if (Input.GetAxis ("AccelButton") != 0 && speed < maxSpeed) {
+					speed = Mathf.Clamp (speed + acceleration * Input.GetAxis ("AccelButton") * Time.deltaTime, minSpeed, maxSpeed);
 				} else if (Input.GetAxis ("DeccelButton") != 0 && speed > minSpeed) {
-					speed = Mathf.Clamp (speed - 100f * Input.GetAxis ("DeccelButton") * Time.deltaTime, minSpeed, maxSpeed);
+					speed = Mathf.Clamp (speed - acceleration * Input.GetAxis ("DeccelButton") * Time.deltaTime, minSpeed, maxSpeed);
 				}
 
 				if (Input.GetKeyDown(KeyCode.D)) {
@@ -55,10 +55,10 @@ public class PlayerController : MonoBehaviour {
 				weaponManager.Fire ();
 				fire_1_held = true;
 			}
-//			if (Input.GetAxis ("Fire2") != 0 && !fire_2_held) {
-//				weaponManager.Fire (secondary:true);
-//				fire_2_held = true;
-//			}
+			if (Input.GetAxis ("Fire2") != 0 && !fire_2_held) {
+				weaponManager.Fire (secondary:true);
+				fire_2_held = true;
+			}
 
 			fire_1_held = Input.GetAxis ("Fire1") != 0;
 			fire_2_held = Input.GetAxis ("Fire2") != 0;
@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour {
 	
 	public void Kill() {
 		Vector3 expl_pos = this.transform.position - Random.insideUnitSphere * 2f;
-		this.rigidbody.AddExplosionForce (50f, expl_pos, 3);
+		this.rigidbody.AddExplosionForce (1000f, expl_pos, 3);
 		Destroy (this.gameObject , 3f);
 	}
 

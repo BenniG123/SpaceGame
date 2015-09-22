@@ -7,49 +7,55 @@ public class MineBehaviour : MonoBehaviour {
 	private float counter;
 	public GameObject explosion;
 	private bool isQuitting;
+	public int team;
+	public float radius;
 
 	// Use this for initialization
 	void Start () {
-
 		counter = lifeTime;
-		isQuitting = false;
-	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
 		counter -= Time.deltaTime;
 		if (counter <= 0f) {
+			Explode();
 			Destroy (this.gameObject);
 		}
 	
 	}
 
 	void OnTriggerEnter(Collider col) {
-		if (col.gameObject.tag == "Player") {
-			if (col.gameObject.GetComponent<PlayerState>().team != GetComponent<WeaponController> ().team) {
+		PlayerState s = col.gameObject.GetComponent<PlayerState> ();
+		if (s != null) {
+			if (s.team != team) {
+				Explode();
 				Destroy (this.gameObject);
 			}
 		}
 	}
 
-	void OnApplicationQuit() {
-		isQuitting = true; 
-	}
-	
-	void OnDestroy() {
-			if (!isQuitting) {
-				Collider[] hitColliders = Physics.OverlapSphere(transform.position, 15);
-				int i = 0;
-				while (i < hitColliders.Length) {
-					if(hitColliders[i].gameObject.tag == "Player") {
-						hitColliders[i].gameObject.GetComponent<PlayerState>().TakeDamage(5, 0);
-						i++;
-					}
-				}
-				Instantiate (explosion, this.transform.position, this.transform.rotation);
+
+	private void Explode() {
+
+		Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius);
+
+		foreach (Collider c in hitColliders) {
+			PlayerState s = c.gameObject.GetComponent<PlayerState> ();
+			if (s != null) {
+				s.TakeDamage(2, 5.0f);
 			}
+		}
+		
+		/* foreach (Collider c in hitColliders) {
+			Rigidbody r = c.rigidbody;
+			if (r != null) {
+				r.AddExplosionForce(500.0f, transform.position, radius);
+			}
+		}*/
+
+		Instantiate (explosion, this.transform.position, this.transform.rotation);
 	}
+
 
 }

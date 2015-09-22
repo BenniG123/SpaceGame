@@ -11,32 +11,36 @@ public class GameManager : MonoBehaviour {
 
 	void OnServerInitialized()
 	{
-		if(players_1.Count > players_2.Count) {
-			SpawnPlayer((GameObject) spawners_2[Random.Range(0, spawners_2.Count - 1)], 2);
-		} else {
+			// SpawnPlayer((GameObject) spawners_2[Random.Range(0, spawners_2.Count - 1)], 2);
+			//if(players_1.Count > players_2.Count) {
+			//	SpawnPlayer((GameObject) spawners_2[Random.Range(0, spawners_2.Count - 1)], 2);
+			//} else {
 			SpawnPlayer((GameObject) spawners_1[Random.Range(0, spawners_1.Count - 1)], 1);
-		}
+			//}
 	}
 
 	void OnConnectedToServer()
 	{
-		if(players_1.Count > players_2.Count) {
-			SpawnPlayer((GameObject) spawners_2[Random.Range(0, spawners_2.Count - 1)], 2);
-		} else {
-			SpawnPlayer((GameObject) spawners_1[Random.Range(0, spawners_1.Count - 1)], 1);
-		}
+			// SpawnPlayer((GameObject) spawners_1[Random.Range(0, spawners_1.Count - 1)], 1);
+			//if(players_1.Count > players_2.Count) {
+				SpawnPlayer((GameObject) spawners_1[Random.Range(0, spawners_1.Count - 1)], 1);
+			//} else {
+			//	SpawnPlayer((GameObject) spawners_1[Random.Range(0, spawners_1.Count - 1)], 1);
+			//}
 	}
 	
 	private void SpawnPlayer(GameObject s, int team)
 	{
 		GameObject net_player = (GameObject) Network.Instantiate(networkPrefab, s.transform.position, s.transform.rotation, 0);
-		networkPrefab.GetComponent<PlayerState> ().team = team;
+		net_player.GetComponent<PlayerState> ().team = team;
 		GetComponent<CameraFollow> ().target = net_player.transform;
+
 		if (team == 1) {
 			players_1.Add (net_player);
 		} else {
 			players_2.Add (net_player);
 		}
+
 	}
 
 	// Use this for initialization

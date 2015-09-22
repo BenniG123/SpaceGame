@@ -13,13 +13,6 @@ public class WeaponController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		if (team == 1) {
-			//Layer for Proj1
-			this.gameObject.layer = 10;
-		} else {
-			//Layer for Proj2
-			this.gameObject.layer = 11;
-		}
 		Destroy (this.gameObject, timer);
 		rigidbody.velocity = transform.rotation * Vector3.up * speed;
 	}
@@ -39,6 +32,10 @@ public class WeaponController : MonoBehaviour {
 				Instantiate (destroyPrefab, this.transform.position, this.transform.rotation);
 				Destroy (this.gameObject);
 			}
+		} else {
+			Instantiate (destroyPrefab, this.transform.position, this.transform.rotation);
+			Destroy (this.gameObject);
 		}
 	}
+
 }

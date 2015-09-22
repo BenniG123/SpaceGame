@@ -17,17 +17,21 @@ public class WeaponManager : MonoBehaviour {
 	}
 
 	public void Fire(bool secondary = false, Transform target = null) {
-		Quaternion projectile_quat = this.transform.rotation;
-		projectile_quat *= Quaternion.Euler (90, 90, 0);
-		GameObject projectile;
-		if (!secondary) {
-			projectile = (GameObject)Network.Instantiate (activeWeapon, this.transform.position, projectile_quat, 0);
-		} else {
-			projectile = (GameObject)Network.Instantiate (secondaryWeapon, this.transform.position, projectile_quat, 0);
-		}
-		((WeaponController)projectile.GetComponent<WeaponController> ()).team = GetComponent<PlayerState> ().team;
-		if (target) {
-			((WeaponController) projectile.GetComponent<WeaponController>()).target = target;
-		}
+			Quaternion projectile_quat = this.transform.rotation;
+			projectile_quat *= Quaternion.Euler (90, 90, 0);
+			GameObject projectile;
+			if (!secondary) {
+				projectile = (GameObject)Network.Instantiate (activeWeapon, this.transform.position, projectile_quat, 0);
+			((WeaponController)projectile.GetComponent<WeaponController> ()).team = GetComponent<PlayerState> ().team;
+				if (target) {
+					((WeaponController) projectile.GetComponent<WeaponController>()).target = target;
+				}
+			} else {
+				projectile = (GameObject)Network.Instantiate (secondaryWeapon, this.transform.position, projectile_quat, 0);
+				MineBehaviour m = projectile.GetComponent<MineBehaviour>();
+				if (m != null) {
+					m.team = GetComponent<PlayerState> ().team;
+				}
+			}
 	}
 }

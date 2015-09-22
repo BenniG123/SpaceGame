@@ -49,7 +49,6 @@
      <Compile Include="Assets\Custom Scripts\AIController.cs" />
      <Compile Include="Assets\Custom Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Custom Scripts\GameManager.cs" />
-     <Compile Include="Assets\Custom Scripts\LaserBehaviour.cs" />
      <Compile Include="Assets\Custom Scripts\MineBehaviour.cs" />
      <Compile Include="Assets\Custom Scripts\NetworkManager.cs" />
      <Compile Include="Assets\Custom Scripts\PlayerController.cs" />
